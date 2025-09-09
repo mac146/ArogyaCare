@@ -1,14 +1,15 @@
-import { z } from "zod";
+import mongoose, { model,Schema } from "mongoose";
 
-enum UserRole {
-  Doctor = "doctor",
-  Chemist = "chemist"
-}
-
-export const signupSchema = z.object({
-  role: z.nativeEnum(UserRole),   // no errorMap here
-  name: z.string().nonempty("Name is required"),
-  email: z.string().email("Invalid email"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-  govId: z.string().nonempty("Government ID is required")
+const medicSchema = new Schema({
+  name: { type: String, unique: true, required: true },
+  password: { type: String, required: true },
+  role: { 
+    type: String, 
+    enum: ["doctor", "chemist"], // only allow these roles
+    required: true 
+  }
 });
+
+export const medicModel = model("medics", medicSchema);
+
+

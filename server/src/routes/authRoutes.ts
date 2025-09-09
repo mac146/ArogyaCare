@@ -1,7 +1,7 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { medicModel } from "../schemas/authschema";
+import { medicModel } from "../db/authdb";
 
 const router = express.Router();
 
